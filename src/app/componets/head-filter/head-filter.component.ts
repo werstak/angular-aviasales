@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatButtonToggle } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-head-filter',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./head-filter.component.scss']
 })
 export class HeadFilterComponent implements OnInit {
+  selected: MatButtonToggle | MatButtonToggle[];
+
 
   constructor() { }
 

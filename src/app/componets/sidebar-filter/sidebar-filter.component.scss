@@ -1,0 +1,28 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  //max-width: 232px;
+  //width: 100%;
+  &__title {
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+    margin: 5px 0 10px;
+  }
+  &__checkList {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border: solid 1px;
+  border-color: #9ABBCE;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #9ABBCE !important;
+}
