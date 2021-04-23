@@ -6,11 +6,17 @@ mat-button-toggle-group {
   font-weight: 600;
   font-size: 12px;
   line-height: 20px;
-
+  flex-wrap: wrap;
 }
 
 .mat-button-toggle-appearance-standard {
   flex-grow: 1;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #4A4A4A;
 }
 
 .mat-button-toggle {

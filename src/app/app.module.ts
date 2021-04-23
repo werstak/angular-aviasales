@@ -8,7 +8,7 @@ import { MaterialModule } from './material.module';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { SidebarFilterComponent } from './componets/sidebar-filter/sidebar-filter.component';
 import { TicketDashboardComponent } from './containers/ticket-dashboard/ticket-dashboard.component';
-import { TicketComponent } from './componets/ticket/ticket.component';
+import { TicketsListComponent } from './componets/tickets-list/tickets-list.component';
 import { HeadFilterComponent } from './componets/head-filter/head-filter.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { HeadFilterComponent } from './componets/head-filter/head-filter.compone
     DashboardComponent,
     SidebarFilterComponent,
     TicketDashboardComponent,
-    TicketComponent,
+    TicketsListComponent,
     HeadFilterComponent
   ],
   imports: [

@@ -1,8 +1,17 @@
-.ticket-dashboard {
-  display: flex;
-  flex-direction: column;
+.head-filter {
+  padding: 10px;
+  width: 100%;
+  max-width: 502px;}
+
+.wrap-tickets {
+  padding: 0 10px 0;
 }
 
-.head-filter {
-
+.btn-more {
+  text-transform: uppercase;
+  max-width: 502px;
+  width: 100%;
+  padding: 7px;
+  background-color: #2196F3;
+  color: #ffffff;
 }

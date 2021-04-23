@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+$custom-typography: mat-typography-config($font-family: '"Open Sans", sans-serif;');
+@include mat-core($custom-typography);
+
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: "Open Sans", "Helvetica Neue", sans-serif; }
 
 .mat-checkbox-inner-container {
   height: 20px!important;
