@@ -18,7 +18,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { CurrencyEffects } from './store/tickets/tickets.effects';
+import { TicketsEffects } from './store/tickets/tickets.effects';
 import { ticketsReducer } from './store/tickets/tickets.reducer';
 import { BaseUrlInterceptor } from './core/api.interceptor';
 
@@ -39,7 +39,7 @@ import { BaseUrlInterceptor } from './core/api.interceptor';
     FormsModule,
     HttpClientModule,
     StoreModule.forRoot({tickets: ticketsReducer}),
-    EffectsModule.forRoot([CurrencyEffects]),
+    EffectsModule.forRoot([TicketsEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
   ],
   providers: [

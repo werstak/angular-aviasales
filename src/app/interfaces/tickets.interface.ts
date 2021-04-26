@@ -1,6 +1,6 @@
-import { TicketsParamsInterface } from './tickets-params.interface';
+import { TicketInterface } from './ticket.interface';
 
 export interface TicketsInterface {
-  tickets: TicketsParamsInterface;
+  tickets: TicketInterface[];
   stop: boolean;
 }

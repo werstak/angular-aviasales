@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { TicketsInterface } from '../../interfaces/tickets.interface';
-import { TicketsParamsInterface } from '../../interfaces/tickets-params.interface';
+
 
 export const fetchSearchIdAction = createAction(
   '[Tickets] Fetch SearchId',
@@ -8,7 +8,12 @@ export const fetchSearchIdAction = createAction(
 
 export const fetchSearchIdSuccessAction = createAction(
   '[Tickets] Fetch SearchId Success',
-  props<{ payload: any }>()
+  props<{ payload: string }>()
+);
+
+export const fetchSearchIdFailAction = createAction(
+  '[Tickets] Fetch SearchId Fail',
+  props<{ payload: Error }>()
 );
 
 export const fetchTicketsAction = createAction(
@@ -17,5 +22,10 @@ export const fetchTicketsAction = createAction(
 
 export const fetchTicketsSuccessAction = createAction(
   '[Tickets] Fetch Tickets Success',
-  props<{ payload: { [key: string]: string } }>()
+  props<{ payload: TicketsInterface }>()
+);
+
+export const fetchTicketsFailAction = createAction(
+  '[Tickets] Fetch Tickets Fail',
+  props<{ payload: Error }>()
 );

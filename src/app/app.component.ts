@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { fetchTicketsAction } from './store/tickets/tickets.actions';
+import { fetchSearchIdAction, fetchTicketsAction } from './store/tickets/tickets.actions';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,6 @@ export class AppComponent {
   constructor(
     public store: Store,
   ) {
-    // this.store.dispatch(fetchTicketsAction());
-    // this.store.dispatch(fetchTicketsAction());
+    this.store.dispatch(fetchSearchIdAction());
   }
 }

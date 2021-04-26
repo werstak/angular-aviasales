@@ -1,10 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { fetchSearchIdSuccessAction, fetchTicketsSuccessAction } from './tickets.actions';
+import { TicketInterface } from '../../interfaces/ticket.interface';
 
 
 export interface TicketsState {
-  searchId: string;
-  entities: any;
+  stop: boolean;
+  entities: TicketInterface[];
 }
 
 export interface State {
@@ -12,22 +13,17 @@ export interface State {
 }
 
 export const initialState: TicketsState = {
-  searchId: null,
-  entities: {},
+  stop: false,
+  entities: [],
 };
 
 const reducer = createReducer(
   initialState,
-  on(fetchSearchIdSuccessAction, (state, {payload}) => {
-    return ({
-      ...state,
-      searchId: payload
-    });
-  }),
   on(fetchTicketsSuccessAction, (state, {payload}) => {
     return ({
       ...state,
-      entities: payload
+      stop: payload.stop,
+      entities: payload.tickets,
     });
   }),
 );

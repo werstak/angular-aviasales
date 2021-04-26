@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { throwError } from 'rxjs';
-import { map, mergeMap, catchError } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
+import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import {
-  fetchSearchIdAction,
+  fetchSearchIdAction, fetchSearchIdFailAction,
   fetchSearchIdSuccessAction,
-  fetchTicketsAction,
+  fetchTicketsAction, fetchTicketsFailAction,
   fetchTicketsSuccessAction
 } from './tickets.actions';
 
@@ -14,10 +14,7 @@ import { Store } from '@ngrx/store';
 
 @Injectable()
 
-export class CurrencyEffects {
-
-  baseCurrency$ = this.store.select(fetchSearchIdSuccessAction);
-
+export class TicketsEffects {
   constructor(
     public store: Store,
     private actions$: Actions,
@@ -25,30 +22,53 @@ export class CurrencyEffects {
   ) {
   }
 
+  // fetchSearchIdAction$ = createEffect(() => this.actions$.pipe(
+  //   ofType(fetchSearchIdAction),
+  //   mergeMap(() => this.ticketsService.fetchSearchId()),
+  //   map(id => fetchSearchIdSuccessAction({payload: id})),
+  //   catchError(error => {
+  //     return of(fetchSearchIdFailAction({payload: error}));
+  //   }))
+  // );
 
-  test = createEffect(() => this.actions$.pipe(
+  fetchSearchIdAction$ = createEffect(() => this.actions$.pipe(
     ofType(fetchSearchIdAction),
     mergeMap(() => this.ticketsService.fetchSearchId()
       .pipe(
-        map(tickets => fetchSearchIdSuccessAction({payload: tickets})),
+        map(id => fetchSearchIdSuccessAction({payload: id})),
         catchError(error => {
-          console.log('Error: ', error.message);
-          return throwError(error);
+          return of(fetchSearchIdFailAction({payload: error}));
         }),
       )))
   );
 
+  fetchSearchIdFailAction$ = createEffect(() => this.actions$.pipe(
+    ofType(fetchSearchIdFailAction),
+    tap(({payload}) => {
+      console.log(payload);
+    })
+  ));
 
-  fetchTickets$ = createEffect(() => this.actions$.pipe(
-    ofType(fetchTicketsAction),
-    mergeMap(() => this.ticketsService.fetchListTickets()
+
+  fetchTicketsAction$ = createEffect(() => this.actions$.pipe(
+    ofType(fetchSearchIdSuccessAction),
+    mergeMap(({payload}) => this.ticketsService.fetchListTickets(payload)
       .pipe(
-        map(tickets => fetchTicketsSuccessAction({payload: tickets})),
+        map(tickets => {
+          return fetchTicketsSuccessAction({payload: tickets});
+        }),
         catchError(error => {
-          console.log('Error: ', error.message);
-          return throwError(error);
+          return of(fetchTicketsFailAction({payload: error}));
         }),
       )))
   );
+
+  fetchTicketsFailAction$ = createEffect(() => this.actions$.pipe(
+    ofType(fetchTicketsFailAction),
+    tap(({payload}) => {
+      console.log(payload);
+    })
+  ));
 
 }
+
