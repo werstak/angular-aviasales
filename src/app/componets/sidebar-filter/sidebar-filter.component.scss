@@ -46,7 +46,7 @@
   margin: 0 12px;
 }
 
-ul {
-  list-style-type: none;
-  margin-top: 4px;
+::ng-deep .mat-checkbox-inner-container {
+  height: 20px!important;
+  width: 20px!important;
 }

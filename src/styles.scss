@@ -6,8 +6,3 @@ $custom-typography: mat-typography-config($font-family: '"Open Sans", sans-serif
 
 html, body { height: 100%; }
 body { margin: 0; font-family: "Open Sans", "Helvetica Neue", sans-serif; }
-
-.mat-checkbox-inner-container {
-  height: 20px!important;
-  width: 20px!important;
-}
