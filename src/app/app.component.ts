@@ -13,6 +13,7 @@ export class AppComponent {
   constructor(
     public store: Store,
   ) {
-    this.store.dispatch(fetchTicketsAction());
+    // this.store.dispatch(fetchTicketsAction());
+    // this.store.dispatch(fetchTicketsAction());
   }
 }

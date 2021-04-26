@@ -1,17 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { fetchTicketsSuccessAction } from './tickets.actions';
+import { fetchSearchIdSuccessAction, fetchTicketsSuccessAction } from './tickets.actions';
 
 
 export interface TicketsState {
-  converts: {
-    fromAmount: number;
-    toAmount: number;
-    from: string;
-    to: string;
-  };
-  entities: { [key: string]: string };
-  rates: { [key: string]: { [key: string]: number } };
-  baseCurrency: string;
+  searchId: string;
+  entities: any;
 }
 
 export interface State {
@@ -19,15 +12,18 @@ export interface State {
 }
 
 export const initialState: TicketsState = {
-  converts: null,
+  searchId: null,
   entities: {},
-  rates: {},
-  baseCurrency: 'EUR',
 };
-
 
 const reducer = createReducer(
   initialState,
+  on(fetchSearchIdSuccessAction, (state, {payload}) => {
+    return ({
+      ...state,
+      searchId: payload
+    });
+  }),
   on(fetchTicketsSuccessAction, (state, {payload}) => {
     return ({
       ...state,

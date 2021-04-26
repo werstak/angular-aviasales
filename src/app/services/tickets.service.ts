@@ -18,6 +18,12 @@ export class TicketsService {
   ) {
   }
 
+  /** Getting SearchId */
+  fetchSearchId(): Observable<{ [key: string]: string }> {
+    return this.httpClient
+      .get<{ [key: string]: string }>(`search`);
+  }
+
   /** Getting a list of tickets */
   fetchListTickets(): Observable<{ [key: string]: string }> {
     return this.httpClient
