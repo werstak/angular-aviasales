@@ -13,13 +13,14 @@ import { HeadFilterComponent } from './componets/head-filter/head-filter.compone
 import { FormsModule } from '@angular/forms';
 
 import { TicketsService } from './services/tickets.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { CurrencyEffects } from './store/tickets/tickets.effects';
 import { ticketsReducer } from './store/tickets/tickets.reducer';
+import { BaseUrlInterceptor } from './core/api.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,11 @@ import { ticketsReducer } from './store/tickets/tickets.reducer';
   ],
   providers: [
     TicketsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

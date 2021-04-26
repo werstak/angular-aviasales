@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { TicketsInterface } from '../../interfaces/tickets.interface';
+import { TicketsParamsInterface } from '../../interfaces/tickets-params.interface';
 
 export const fetchTicketsAction = createAction(
   '[Tickets] Fetch Tickets'
