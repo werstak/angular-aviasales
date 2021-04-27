@@ -1,6 +1,7 @@
 .wrap-app {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   align-items: center;
   background: #E5E5E5;
 }
@@ -8,6 +9,8 @@
 .content {
   padding: 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   width: 100%;
   max-width: 1000px;

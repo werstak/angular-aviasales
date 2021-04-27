@@ -1,11 +1,12 @@
 .head-filter {
-  padding: 10px;
+  padding: 10px 0;
   width: 100%;
   max-width: 502px;
+  box-sizing: border-box;
 }
 
 .wrap-tickets {
-  padding: 0 10px 0;
+  padding: 0;
 }
 
 .btn-more {

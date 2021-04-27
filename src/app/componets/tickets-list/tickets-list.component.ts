@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+
 import { Store } from '@ngrx/store';
 import { selectTickets } from '../../store/tickets/tickets.selectors';
 
