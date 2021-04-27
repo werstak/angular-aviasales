@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
@@ -28,14 +28,10 @@ export class TicketsService {
   }
 
   /** Getting a list of tickets */
-  fetchListTickets(id): Observable<TicketsInterface> {
-    const params = new HttpParams({
-      fromObject: {
-        searchId: id,
-      }
-    });
+  fetchListTickets(searchId: string): Observable<TicketsInterface> {
+    const params = { searchId };
     return this.httpClient
-      .get<TicketsInterface>(`tickets`, {params});
+      .get<TicketsInterface>(`tickets`, { params });
   }
 
 }
