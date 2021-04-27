@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectTickets } from '../../store/tickets/tickets.selectors';
 
 @Component({
   selector: 'app-tickets-list',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketsListComponent implements OnInit {
 
-  constructor() { }
+  dataTickets$ = this.store.select(selectTickets);
+
+  constructor(
+    public store: Store
+  ) {
+  }
 
   ngOnInit(): void {
   }

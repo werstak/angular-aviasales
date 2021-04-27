@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-
-import { TicketInterface } from '../interfaces/ticket.interface';
 import { pluck } from 'rxjs/operators';
+
+import { Store } from '@ngrx/store';
 import { TicketsInterface } from '../interfaces/tickets.interface';
 
 
@@ -22,9 +21,10 @@ export class TicketsService {
 
   /** Getting SearchId */
   fetchSearchId(): Observable<string> {
-    return this.httpClient.get<{searchId: string}>(`search`).pipe(
-      pluck('searchId'),
-    );
+    return this.httpClient
+      .get<{ searchId: string }>(`search`).pipe(
+        pluck('searchId'),
+      );
   }
 
   /** Getting a list of tickets */
@@ -34,8 +34,8 @@ export class TicketsService {
         searchId: id,
       }
     });
-
-    return this.httpClient.get<TicketsInterface>(`tickets`, {params});
+    return this.httpClient
+      .get<TicketsInterface>(`tickets`, {params});
   }
 
 }

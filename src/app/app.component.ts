@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { fetchSearchIdAction, fetchTicketsAction } from './store/tickets/tickets.actions';
+import { fetchSearchIdAction } from './store/tickets/tickets.actions';
 
 @Component({
   selector: 'app-root',

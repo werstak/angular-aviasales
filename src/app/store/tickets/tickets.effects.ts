@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import {
-  fetchSearchIdAction, fetchSearchIdFailAction,
+  fetchSearchIdAction,
+  fetchSearchIdFailAction,
   fetchSearchIdSuccessAction,
-  fetchTicketsAction, fetchTicketsFailAction,
+  fetchTicketsFailAction,
   fetchTicketsSuccessAction
 } from './tickets.actions';
 
@@ -21,15 +22,6 @@ export class TicketsEffects {
     private ticketsService: TicketsService
   ) {
   }
-
-  // fetchSearchIdAction$ = createEffect(() => this.actions$.pipe(
-  //   ofType(fetchSearchIdAction),
-  //   mergeMap(() => this.ticketsService.fetchSearchId()),
-  //   map(id => fetchSearchIdSuccessAction({payload: id})),
-  //   catchError(error => {
-  //     return of(fetchSearchIdFailAction({payload: error}));
-  //   }))
-  // );
 
   fetchSearchIdAction$ = createEffect(() => this.actions$.pipe(
     ofType(fetchSearchIdAction),
