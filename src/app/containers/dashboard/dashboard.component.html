@@ -6,28 +6,23 @@
       <span class="sidebar__title">количество пересадок</span>
       <div class="sidebar__checkList">
 
-        <div class="sidebar__checkItem"
-             *ngFor="let filter of filters">
-          <mat-checkbox [name]="filter.name">
-            {{filter.title}}
-          </mat-checkbox>
-        </div>
-
         <div class="sidebar__checkItem">
           <mat-checkbox
+            [name]="filters.name"
             [checked]="allComplete"
             [indeterminate]="someComplete()"
             (change)="setAll($event.checked)"
           >
-            {{task.name}}
+            {{filters.title}}
           </mat-checkbox>
         </div>
         <div class="sidebar__checkItem"
-             *ngFor="let subtask of task.subtasks">
+             *ngFor="let subtask of filters.subfilters">
           <mat-checkbox
+            [name]="filters.name"
             [(ngModel)]="subtask.completed"
             (ngModelChange)="updateAllComplete()">
-            {{subtask.name}}
+            {{subtask.title}}
           </mat-checkbox>
         </div>
 

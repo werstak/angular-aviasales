@@ -1,72 +1,57 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckboxFilterInterface } from '../../interfaces/checkbox-filter.interface';
-import { MatButtonToggle } from '@angular/material/button-toggle';
-import { selectTickets } from '../../store/tickets/tickets.selectors';
-import { Store } from '@ngrx/store';
 
-export interface Task {
-  name: string;
-  completed: boolean;
-  subtasks?: Task[];
-}
+import { MatButtonToggle } from '@angular/material/button-toggle';
+
+import { Store } from '@ngrx/store';
+import { selectTickets } from '../../store/tickets/tickets.selectors';
+import { FilterInterface } from '../../interfaces/filter.interface';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   selected: MatButtonToggle | MatButtonToggle[];
-
-  filters: CheckboxFilterInterface[] = [
-    {name: 'all', title: 'Все'},
-    {name: 'without-transfers', title: 'Без пересадок'},
-    {name: 'one-transfers', title: '1 пересадка'},
-    {name: 'two-transfers', title: '2 пересадки'},
-    {name: 'trre-transfers', title: '3 пересадки'},
-  ];
-
   dataTickets$ = this.store.select(selectTickets);
 
-  task: Task = {
-    name: 'Indeterminate',
+  filters: FilterInterface = {
+    name: 'all',
+    title: 'Все',
     completed: false,
-    subtasks: [
-      {name: 'Primary', completed: false},
-      {name: 'Accent', completed: false},
-      {name: 'Warn', completed: false}
+    subfilters: [
+      {name: 'without-transfers', title: 'Без пересадок', completed: false},
+      {name: 'one-transfers', title: '1 пересадка', completed: false},
+      {name: 'two-transfers', title: '2 пересадки', completed: false},
+      {name: 'trre-transfers', title: '3 пересадки', completed: false}
     ]
   };
 
   allComplete = false;
-
-  updateAllComplete(): void  {
-    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
-  }
-
-  someComplete(): boolean {
-    if (this.task.subtasks == null) {
-      return false;
-    }
-    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
-  }
-
-  setAll(completed: boolean): void  {
-    this.allComplete = completed;
-    if (this.task.subtasks == null) {
-      return;
-    }
-    this.task.subtasks.forEach(t => t.completed = completed);
-  }
 
   constructor(
     public store: Store
   ) {
   }
 
-  ngOnInit(): void {
+  updateAllComplete(): void  {
+    this.allComplete = this.filters.subfilters != null && this.filters.subfilters.every(t => t.completed);
   }
 
+  someComplete(): boolean {
+    if (this.filters.subfilters == null) {
+      return false;
+    }
+    return this.filters.subfilters.filter(t => t.completed).length > 0 && !this.allComplete;
+  }
+
+  setAll(completed: boolean): void  {
+    this.allComplete = completed;
+    if (this.filters.subfilters == null) {
+      return;
+    }
+    this.filters.subfilters.forEach(t => t.completed = completed);
+  }
 
 
 }
