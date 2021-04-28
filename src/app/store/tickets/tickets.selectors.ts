@@ -8,3 +8,8 @@ export const selectTickets = createSelector(
   selectTicketsState,
   (state: TicketsState) => state.entities
 );
+
+export const selectFilters = createSelector(
+  selectTicketsState,
+  (state: TicketsState, props) => state.entities[props]
+);

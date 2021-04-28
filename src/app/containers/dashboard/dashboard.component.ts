@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatButtonToggle } from '@angular/material/button-toggle';
 
 import { Store } from '@ngrx/store';
-import { selectTickets } from '../../store/tickets/tickets.selectors';
+import { selectFilters, selectTickets } from '../../store/tickets/tickets.selectors';
 import { FilterInterface } from '../../interfaces/filter.interface';
 
 @Component({
@@ -15,6 +15,7 @@ import { FilterInterface } from '../../interfaces/filter.interface';
 export class DashboardComponent implements OnInit {
 
   dataTickets$ = this.store.select(selectTickets);
+  filtersTickets$: any;
 
   filterForm: FormGroup;
 
@@ -47,7 +48,7 @@ export class DashboardComponent implements OnInit {
 
   private buildForm(): void {
     this.filterForm = this.fb.group({
-      all: [''],
+      all: [false],
       withoutTransfers: [''],
       oneTransfers: [''],
       twoTransfers: [''],
@@ -58,6 +59,9 @@ export class DashboardComponent implements OnInit {
   filterCheck(): void {
     const params = this.filterForm.value;
     console.log('form.value', params);
+
+    this.filtersTickets$ = this.store.select(selectFilters, { params });
+    console.log('filtersTickets', this.filtersTickets$);
   }
 
   updateAllComplete(): void {
