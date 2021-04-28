@@ -1,46 +1,26 @@
 <div class="dashboard">
-  <!--  <app-sidebar-filter class="sidebar-filter"></app-sidebar-filter>-->
 
   <div class="sidebar-filter">
     <mat-card class="sidebar">
       <span class="sidebar__title">количество пересадок</span>
       <div class="sidebar__checkList">
-
         <form class="converter-form" [formGroup]="filterForm">
-
           <div class="sidebar__checkItem">
             <mat-checkbox
-              [name]="filters.name"
-              [checked]="allComplete"
-              [indeterminate]="someComplete()"
-              (change)="filterCheck(); setAll($event.checked);"
+              [indeterminate]="(indeterminate$ | async)"
               [formControlName]="filters.formControlName"
             >
               {{filters.title}}
             </mat-checkbox>
           </div>
-          <div class="sidebar__checkItem"
-               *ngFor="let subtask of filters.subfilters">
-            <mat-checkbox
-              [name]="filters.name"
-              [(ngModel)]="subtask.completed"
-              (ngModelChange)="updateAllComplete()"
-              [formControlName]="subtask.formControlName"
-              (change)="filterCheck()"
-            >
-              {{subtask.title}}
-            </mat-checkbox>
+          <div formGroupName="filter">
+            <div class="sidebar__checkItem" *ngFor="let subtask of filters.subfilters">
+              <mat-checkbox [formControlName]="subtask.formControlName">
+                {{subtask.title}}
+              </mat-checkbox>
+            </div>
           </div>
-
-          <button type="submit"
-                  mat-raised-button color="primary"
-                  (click)="filterCheck()">
-            FilterCheck
-          </button>
-
         </form>
-
-
       </div>
     </mat-card>
   </div>

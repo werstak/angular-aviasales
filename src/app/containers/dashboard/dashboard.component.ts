@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { MatButtonToggle } from '@angular/material/button-toggle';
-
 import { Store } from '@ngrx/store';
 import { selectFilters, selectTickets } from '../../store/tickets/tickets.selectors';
 import { FilterInterface } from '../../interfaces/filter.interface';
+import { filter, map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,12 +14,14 @@ import { FilterInterface } from '../../interfaces/filter.interface';
 })
 export class DashboardComponent implements OnInit {
 
-  dataTickets$ = this.store.select(selectTickets);
-  filtersTickets$: any;
+  dataTickets$ = this.store.select(selectTickets).pipe(
+    filter(res => !!res.length),
+    map((res) => {
+      return [res[0], res[1], res[2]];
+    })
+  );
 
   filterForm: FormGroup;
-
-  selected: MatButtonToggle | MatButtonToggle[];
 
   filters: FilterInterface = {
     name: 'all',
@@ -34,7 +36,7 @@ export class DashboardComponent implements OnInit {
     ]
   };
 
-  allComplete = false;
+  indeterminate$ = new Subject<boolean>();
 
   constructor(
     public store: Store,
@@ -44,44 +46,44 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+
+    this.filterForm.get('all').valueChanges.subscribe((allChecked: boolean) => {
+      this.filterForm.get('filter').patchValue({
+        withoutTransfers: allChecked,
+        oneTransfers: allChecked,
+        twoTransfers: allChecked,
+        threeTransfers: allChecked
+      });
+    });
+
+    this.filterForm.get('filter').valueChanges.subscribe(fields => {
+      const values = Object.values(fields);
+      const allChecked = values.every(value => value);
+      const allUnchecked = values.every(value => !value);
+      const isIndeterminate = !(allChecked || allUnchecked);
+
+      this.indeterminate$.next(isIndeterminate);
+      this.filterForm.get('all').patchValue(allChecked, {emitEvent: false});
+    });
   }
 
   private buildForm(): void {
     this.filterForm = this.fb.group({
       all: [false],
-      withoutTransfers: [''],
-      oneTransfers: [''],
-      twoTransfers: [''],
-      threeTransfers: ['']
+      filter: this.fb.group({
+        withoutTransfers: [''],
+        oneTransfers: [''],
+        twoTransfers: [''],
+        threeTransfers: ['']
+      })
     });
   }
 
-  filterCheck(): void {
-    const params = this.filterForm.value;
-    console.log('form.value', params);
-
-    this.filtersTickets$ = this.store.select(selectFilters, { params });
-    console.log('filtersTickets', this.filtersTickets$);
-  }
-
-  updateAllComplete(): void {
-    this.allComplete = this.filters.subfilters != null && this.filters.subfilters.every(t => t.completed);
-  }
-
-  someComplete(): boolean {
-    if (this.filters.subfilters == null) {
-      return false;
-    }
-    return this.filters.subfilters.filter(t => t.completed).length > 0 && !this.allComplete;
-  }
-
-  setAll(completed: boolean): void {
-    this.allComplete = completed;
-    if (this.filters.subfilters == null) {
-      return;
-    }
-    this.filters.subfilters.forEach(t => t.completed = completed);
-  }
-
-
+  // filterCheck(): void {
+  //   const params = this.filterForm.value;
+  //   console.log('form.value', params);
+  //
+  //   this.filtersTickets$ = this.store.select(selectFilters, {params});
+  //   console.log('filtersTickets', this.filtersTickets$);
+  // }
 }
