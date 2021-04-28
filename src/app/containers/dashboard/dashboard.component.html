@@ -1,16 +1,37 @@
 <div class="dashboard">
   <!--  <app-sidebar-filter class="sidebar-filter"></app-sidebar-filter>-->
+
   <div class="sidebar-filter">
     <mat-card class="sidebar">
       <span class="sidebar__title">количество пересадок</span>
       <div class="sidebar__checkList">
-        <div *ngFor="let filter of filters">
-          <mat-checkbox
-            [name]="filter.name"
-          >
+
+        <div class="sidebar__checkItem"
+             *ngFor="let filter of filters">
+          <mat-checkbox [name]="filter.name">
             {{filter.title}}
           </mat-checkbox>
         </div>
+
+        <div class="sidebar__checkItem">
+          <mat-checkbox
+            [checked]="allComplete"
+            [indeterminate]="someComplete()"
+            (change)="setAll($event.checked)"
+          >
+            {{task.name}}
+          </mat-checkbox>
+        </div>
+        <div class="sidebar__checkItem"
+             *ngFor="let subtask of task.subtasks">
+          <mat-checkbox
+            [(ngModel)]="subtask.completed"
+            (ngModelChange)="updateAllComplete()">
+            {{subtask.name}}
+          </mat-checkbox>
+        </div>
+
+
       </div>
     </mat-card>
   </div>
@@ -62,7 +83,6 @@
           </div>
         </div>
       </mat-card>
-
 
       <mat-card class="ticket" *ngFor="let ticket of dataTickets$ | async">
         <div class="ticket__title">
