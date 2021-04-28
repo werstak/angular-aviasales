@@ -8,7 +8,7 @@ export interface TicketsState {
   stop: boolean;
 }
 
-export interface State {
+export interface AppState {
   tickets: TicketsState;
 }
 

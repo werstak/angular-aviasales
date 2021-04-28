@@ -8,13 +8,13 @@ import { CheckboxFilterInterface } from '../../interfaces/checkbox-filter.interf
 })
 export class SidebarFilterComponent implements OnInit {
 
-  filters: CheckboxFilterInterface[] = [
-    {name: 'all', title: 'Все'},
-    {name: 'without-transfers', title: 'Без пересадок'},
-    {name: 'one-transfers', title: '1 пересадка'},
-    {name: 'two-transfers', title: '2 пересадки'},
-    {name: 'trre-transfers', title: '3 пересадки'},
-  ];
+  // filters: CheckboxFilterInterface[] = [
+  //   {name: 'all', title: 'Все'},
+  //   {name: 'without-transfers', title: 'Без пересадок'},
+  //   {name: 'one-transfers', title: '1 пересадка'},
+  //   {name: 'two-transfers', title: '2 пересадки'},
+  //   {name: 'trre-transfers', title: '3 пересадки'},
+  // ];
 
   constructor() { }
 

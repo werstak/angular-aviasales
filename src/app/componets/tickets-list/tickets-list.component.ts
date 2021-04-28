@@ -11,12 +11,12 @@ import { selectTickets } from '../../store/tickets/tickets.selectors';
 })
 export class TicketsListComponent implements OnInit {
 
-  dataTickets$ = this.store.select(selectTickets);
+/*  dataTickets$ = this.store.select(selectTickets);
 
   constructor(
     public store: Store
   ) {
-  }
+  }*/
 
   ngOnInit(): void {
   }

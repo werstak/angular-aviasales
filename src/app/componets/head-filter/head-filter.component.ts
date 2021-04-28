@@ -7,7 +7,7 @@ import { MatButtonToggle } from '@angular/material/button-toggle';
   styleUrls: ['./head-filter.component.scss']
 })
 export class HeadFilterComponent implements OnInit {
-  selected: MatButtonToggle | MatButtonToggle[];
+  // selected: MatButtonToggle | MatButtonToggle[];
 
 
   constructor() { }

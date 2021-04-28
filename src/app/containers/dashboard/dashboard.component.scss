@@ -1,13 +1,8 @@
-.sidebar-filter {
-  max-width: 232px;
-  width: 100%;
-  padding: 10px;
-}
 .ticket-dashboard {
   flex-direction: column;
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 .dashboard {
@@ -16,4 +11,204 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
+}
+
+/* =================================== sidebar-filter =================================== */
+.sidebar-filter {
+  max-width: 232px;
+  width: 100%;
+  padding: 10px;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  color: #4A4A4A;
+  padding: 0 0 10px;
+
+  &__title {
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+    padding: 20px 20px 10px;
+  }
+
+  &__checkList {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      padding: 8px 20px;
+      font-size: 13px;
+
+      &:hover {
+        background: #F1FCFF;
+      }
+    }
+  }
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border: solid 1px;
+  border-color: #9ABBCE;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #9ABBCE !important;
+}
+
+.example-section {
+  margin: 12px 0;
+}
+
+.example-margin {
+  margin: 0 12px;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  height: 20px!important;
+  width: 20px!important;
+}
+
+
+
+/* =================================== head-filter =================================== */
+.head-filter {
+  padding: 0 0 10px;
+  width: 100%;
+  max-width: 502px;
+  box-sizing: border-box;
+}
+
+.wrap-tickets {
+  padding: 0;
+}
+
+.btn-more {
+  text-transform: uppercase;
+  max-width: 502px;
+  width: 100%;
+  padding: 7px;
+  background-color: #2196F3;
+  color: #ffffff;
+}
+
+
+/* =================================== mat-button-toggle-group =================================== */
+
+mat-button-toggle-group {
+  width: 100%;
+  border-radius: 5px;
+  letter-spacing: 0.5px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  flex-wrap: wrap;
+}
+
+.mat-button-toggle-appearance-standard {
+  flex-grow: 1;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #4A4A4A;
+}
+
+.mat-button-toggle {
+  color: #4A4A4A;
+}
+
+.mat-button-toggle-checked {
+  background-color: #2196F3;
+  color: #ffffff;
+}
+
+::ng-deep .mat-button-toggle-button {
+  text-transform: uppercase;
+}
+
+
+
+/* =================================== ticket =================================== */
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  color: #4A4A4A;
+  padding: 20px;
+  margin: 10px 0 20px;
+  max-width: 502px;
+  width: 100%;
+  box-sizing: border-box;
+  &__title {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 10px;
+  }
+  &__price {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+    color: #2196F3;
+    margin: 0 20px 0 0;
+  }
+  &__carrier {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 110px;
+  }
+  &__carrierLogo {
+    max-width: 36px;
+    width: 100%;
+    max-height: 36px;
+    height: 100%;
+    padding: 0 5px 0 0;
+  }
+  &__carrierTitle {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    color: #70777b;
+  }
+}
+.ticket-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  &__cell {
+    width: 141px;
+    height: 39px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px 0 0;
+  }
+  &__titles {
+    color: #A0B0B9;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  &__values {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4A4A4A;
+  }
 }

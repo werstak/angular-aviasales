@@ -1,8 +1,8 @@
-import { State, TicketsState } from './tickets.reducer';
+import { AppState, TicketsState } from './tickets.reducer';
 import { createSelector } from '@ngrx/store';
 
 
-export const selectTicketsState = (state: State) => state.tickets;
+export const selectTicketsState = (state: AppState) => state.tickets;
 
 export const selectTickets = createSelector(
   selectTicketsState,
