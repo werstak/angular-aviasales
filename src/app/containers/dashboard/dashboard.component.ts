@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { MatButtonToggle } from '@angular/material/button-toggle';
 
@@ -11,30 +12,55 @@ import { FilterInterface } from '../../interfaces/filter.interface';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
-  selected: MatButtonToggle | MatButtonToggle[];
+export class DashboardComponent implements OnInit {
+
   dataTickets$ = this.store.select(selectTickets);
+
+  filterForm: FormGroup;
+
+  selected: MatButtonToggle | MatButtonToggle[];
 
   filters: FilterInterface = {
     name: 'all',
     title: 'Все',
     completed: false,
+    formControlName: 'all',
     subfilters: [
-      {name: 'without-transfers', title: 'Без пересадок', completed: false},
-      {name: 'one-transfers', title: '1 пересадка', completed: false},
-      {name: 'two-transfers', title: '2 пересадки', completed: false},
-      {name: 'trre-transfers', title: '3 пересадки', completed: false}
+      {name: 'without-transfers', title: 'Без пересадок', completed: false, formControlName: 'withoutTransfers'},
+      {name: 'one-transfers', title: '1 пересадка', completed: false, formControlName: 'oneTransfers'},
+      {name: 'two-transfers', title: '2 пересадки', completed: false, formControlName: 'twoTransfers'},
+      {name: 'three-transfers', title: '3 пересадки', completed: false, formControlName: 'threeTransfers'}
     ]
   };
 
   allComplete = false;
 
   constructor(
-    public store: Store
+    public store: Store,
+    private fb: FormBuilder,
   ) {
   }
 
-  updateAllComplete(): void  {
+  ngOnInit(): void {
+    this.buildForm();
+  }
+
+  private buildForm(): void {
+    this.filterForm = this.fb.group({
+      all: [''],
+      withoutTransfers: [''],
+      oneTransfers: [''],
+      twoTransfers: [''],
+      threeTransfers: ['']
+    });
+  }
+
+  filterCheck(): void {
+    const params = this.filterForm.value;
+    console.log('form.value', params);
+  }
+
+  updateAllComplete(): void {
     this.allComplete = this.filters.subfilters != null && this.filters.subfilters.every(t => t.completed);
   }
 
@@ -45,7 +71,7 @@ export class DashboardComponent {
     return this.filters.subfilters.filter(t => t.completed).length > 0 && !this.allComplete;
   }
 
-  setAll(completed: boolean): void  {
+  setAll(completed: boolean): void {
     this.allComplete = completed;
     if (this.filters.subfilters == null) {
       return;
