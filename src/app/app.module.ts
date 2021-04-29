@@ -8,10 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
-import { SidebarFilterComponent } from './componets/sidebar-filter/sidebar-filter.component';
-import { TicketDashboardComponent } from './containers/ticket-dashboard/ticket-dashboard.component';
-import { TicketsListComponent } from './componets/tickets-list/tickets-list.component';
-import { HeadFilterComponent } from './componets/head-filter/head-filter.component';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BaseUrlInterceptor } from './core/api.interceptor';
@@ -30,10 +26,6 @@ import { ConverterTimePipe } from './pipes/converter-time.pipe';
   declarations: [
     AppComponent,
     DashboardComponent,
-    SidebarFilterComponent,
-    TicketDashboardComponent,
-    TicketsListComponent,
-    HeadFilterComponent,
     ConverterTimePipe
   ],
   imports: [

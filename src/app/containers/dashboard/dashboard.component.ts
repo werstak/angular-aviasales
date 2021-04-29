@@ -10,7 +10,6 @@ import { FilterInterface } from '../../interfaces/filter.interface';
 import { TicketInterface } from '../../interfaces/ticket.interface';
 
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,15 +22,14 @@ export class DashboardComponent implements OnInit {
   filterForm: FormGroup;
 
   filters: FilterInterface = {
-    name: 'all',
     title: 'Все',
     completed: false,
     formControlName: 'all',
     subfilters: [
-      {name: 'without-transfers', title: 'Без пересадок', completed: false, formControlName: 'withoutTransfers'},
-      {name: 'one-transfers', title: '1 пересадка', completed: false, formControlName: 'oneTransfers'},
-      {name: 'two-transfers', title: '2 пересадки', completed: false, formControlName: 'twoTransfers'},
-      {name: 'three-transfers', title: '3 пересадки', completed: false, formControlName: 'threeTransfers'}
+      {title: 'Без пересадок', completed: false, formControlName: 'withoutTransfers'},
+      {title: '1 пересадка', completed: false, formControlName: 'oneTransfers'},
+      {title: '2 пересадки', completed: false, formControlName: 'twoTransfers'},
+      {title: '3 пересадки', completed: false, formControlName: 'threeTransfers'}
     ]
   };
 
@@ -65,6 +63,8 @@ export class DashboardComponent implements OnInit {
       this.filterForm.get('all').patchValue(allChecked, {emitEvent: false});
     });
 
+    // console.log(this.filterForm.value);
+
     this.dataTickets$ = this.filterForm.valueChanges
       .pipe(
         startWith(this.filterForm.value as Record<string, unknown>),
@@ -81,6 +81,7 @@ export class DashboardComponent implements OnInit {
     this.filterForm = this.fb.group({
       all: [true],
       limit: [5],
+      sort: [1],
       filter: this.fb.group({
         withoutTransfers: [true],
         oneTransfers: [true],
@@ -88,6 +89,13 @@ export class DashboardComponent implements OnInit {
         threeTransfers: [true],
       }),
     });
+  }
+
+  sortTickets(value: number, ): void {
+    const sortControl = this.filterForm.get('sort');
+    sortControl.patchValue(value);
+    console.log(this.filterForm.value);
+
   }
 
   addMore(value: number): void {

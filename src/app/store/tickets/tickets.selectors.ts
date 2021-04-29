@@ -18,6 +18,7 @@ export const selectTickets = createSelector(
           (twoTransfers && transferCount === 2) ||
           (threeTransfers && transferCount === 3);
       })
+      .sort()
       .slice(0, limit);
   }
 );

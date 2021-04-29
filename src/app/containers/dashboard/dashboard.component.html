@@ -14,7 +14,9 @@
         </div>
         <div formGroupName="filter">
           <div class="sidebar__checkItem" *ngFor="let subtask of filters.subfilters">
-            <mat-checkbox [formControlName]="subtask.formControlName">
+            <mat-checkbox
+              [formControlName]="subtask.formControlName"
+            >
               {{subtask.title}}
             </mat-checkbox>
           </div>
@@ -28,16 +30,19 @@
     <div class="head-filter">
       <mat-button-toggle-group name="fontStyle" value="cheap" aria-label="Font Style">
         <mat-button-toggle
+          (click)="sortTickets(1)"
           value="cheap"
         >
           Самый дешевый
         </mat-button-toggle>
         <mat-button-toggle
+          (click)="sortTickets(2)"
           value="fast"
         >
           Самый быстрый
         </mat-button-toggle>
         <mat-button-toggle
+          (click)="sortTickets(3)"
           value="optimal"
         >
           Оптимальный
@@ -113,189 +118,5 @@
     <button class="btn-more" mat-flat-button (click)="addMore(5)">Показать еще 5 билетов!</button>
 
   </div>
-
-  <!--
-    <app-ticket-dashboard class="ticket-dashboard"></app-ticket-dashboard>
-  -->
-
-
-  <!--
-<mat-card class="ticket">
-  <div class="ticket__title">
-    <div class="ticket__price">13 400 P</div>
-    <div class="ticket__carrier">
-      <img class="ticket__carrierLogo" src="/assets/img/carrier_logo.png" alt="Carrier Logo">
-      <div class="ticket__carrierTitle">Airlines</div>
-    </div>
-  </div>
-  <div class="ticket-content">
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">21ч 15м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">2 пересадки</div>
-      <div class="ticket-content__values">HKG, JNB</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">13ч 30м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">1 пересадка</div>
-      <div class="ticket-content__values">HKG</div>
-    </div>
-  </div>
-</mat-card>
-<mat-card class="ticket">
-  <div class="ticket__title">
-    <div class="ticket__price">13 400 P</div>
-    <div class="ticket__carrier">
-      <img class="ticket__carrierLogo" src="/assets/img/carrier_logo.png" alt="Carrier Logo">
-      <div class="ticket__carrierTitle">Airlines</div>
-    </div>
-  </div>
-  <div class="ticket-content">
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">21ч 15м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">2 пересадки</div>
-      <div class="ticket-content__values">HKG, JNB</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">13ч 30м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">1 пересадка</div>
-      <div class="ticket-content__values">HKG</div>
-    </div>
-  </div>
-</mat-card>
-<mat-card class="ticket">
-  <div class="ticket__title">
-    <div class="ticket__price">13 400 P</div>
-    <div class="ticket__carrier">
-      <img class="ticket__carrierLogo" src="/assets/img/carrier_logo.png" alt="Carrier Logo">
-      <div class="ticket__carrierTitle">Airlines</div>
-    </div>
-  </div>
-  <div class="ticket-content">
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">21ч 15м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">2 пересадки</div>
-      <div class="ticket-content__values">HKG, JNB</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">13ч 30м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">1 пересадка</div>
-      <div class="ticket-content__values">HKG</div>
-    </div>
-  </div>
-</mat-card>
-<mat-card class="ticket">
-  <div class="ticket__title">
-    <div class="ticket__price">13 400 P</div>
-    <div class="ticket__carrier">
-      <img class="ticket__carrierLogo" src="/assets/img/carrier_logo.png" alt="Carrier Logo">
-      <div class="ticket__carrierTitle">Airlines</div>
-    </div>
-  </div>
-  <div class="ticket-content">
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">21ч 15м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">2 пересадки</div>
-      <div class="ticket-content__values">HKG, JNB</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">13ч 30м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">1 пересадка</div>
-      <div class="ticket-content__values">HKG</div>
-    </div>
-  </div>
-</mat-card>
-<mat-card class="ticket">
-  <div class="ticket__title">
-    <div class="ticket__price">13 400 P</div>
-    <div class="ticket__carrier">
-      <img class="ticket__carrierLogo" src="/assets/img/carrier_logo.png" alt="Carrier Logo">
-      <div class="ticket__carrierTitle">Airlines</div>
-    </div>
-  </div>
-  <div class="ticket-content">
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">21ч 15м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">2 пересадки</div>
-      <div class="ticket-content__values">HKG, JNB</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">MOW – HKT</div>
-      <div class="ticket-content__values">10:45 – 08:00</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">В пути</div>
-      <div class="ticket-content__values">13ч 30м</div>
-    </div>
-    <div class="ticket-content__cell">
-      <div class="ticket-content__titles">1 пересадка</div>
-      <div class="ticket-content__values">HKG</div>
-    </div>
-  </div>
-</mat-card>
-
--->
 
 </div>
