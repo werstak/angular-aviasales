@@ -1,26 +1,24 @@
-<div class="dashboard">
+<div class="dashboard" [formGroup]="filterForm">
 
   <div class="sidebar-filter">
     <mat-card class="sidebar">
       <span class="sidebar__title">количество пересадок</span>
       <div class="sidebar__checkList">
-        <form class="converter-form" [formGroup]="filterForm">
-          <div class="sidebar__checkItem">
-            <mat-checkbox
-              [indeterminate]="(indeterminate$ | async)"
-              [formControlName]="filters.formControlName"
-            >
-              {{filters.title}}
+        <div class="sidebar__checkItem">
+          <mat-checkbox
+            [indeterminate]="(indeterminate$ | async)"
+            [formControlName]="filters.formControlName"
+          >
+            {{filters.title}}
+          </mat-checkbox>
+        </div>
+        <div formGroupName="filter">
+          <div class="sidebar__checkItem" *ngFor="let subtask of filters.subfilters">
+            <mat-checkbox [formControlName]="subtask.formControlName">
+              {{subtask.title}}
             </mat-checkbox>
           </div>
-          <div formGroupName="filter">
-            <div class="sidebar__checkItem" *ngFor="let subtask of filters.subfilters">
-              <mat-checkbox [formControlName]="subtask.formControlName">
-                {{subtask.title}}
-              </mat-checkbox>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </mat-card>
   </div>
@@ -112,7 +110,7 @@
 
     </div>
 
-    <button class="btn-more" mat-flat-button>Показать еще 5 билетов!</button>
+    <button class="btn-more" mat-flat-button (click)="addMore(5)">Показать еще 5 билетов!</button>
 
   </div>
 

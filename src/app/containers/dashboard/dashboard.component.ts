@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { startWith, switchMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+
 import { Store } from '@ngrx/store';
-import { selectFilters, selectTickets } from '../../store/tickets/tickets.selectors';
+import { selectTickets } from '../../store/tickets/tickets.selectors';
 import { FilterInterface } from '../../interfaces/filter.interface';
-import { filter, map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { TicketInterface } from '../../interfaces/ticket.interface';
+
+
 
 @Component({
   selector: 'app-dashboard',
@@ -14,12 +18,7 @@ import { Subject } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-  dataTickets$ = this.store.select(selectTickets).pipe(
-    filter(res => !!res.length),
-    map((res) => {
-      return [res[0], res[1], res[2]];
-    })
-  );
+  dataTickets$: Observable<TicketInterface[]>;
 
   filterForm: FormGroup;
 
@@ -65,25 +64,34 @@ export class DashboardComponent implements OnInit {
       this.indeterminate$.next(isIndeterminate);
       this.filterForm.get('all').patchValue(allChecked, {emitEvent: false});
     });
+
+    this.dataTickets$ = this.filterForm.valueChanges
+      .pipe(
+        startWith(this.filterForm.value as Record<string, unknown>),
+        switchMap(values => {
+          return this.store.select(selectTickets, {
+            filters: values.filter,
+            limit: values.limit,
+          });
+        }),
+      );
   }
 
   private buildForm(): void {
     this.filterForm = this.fb.group({
-      all: [false],
+      all: [true],
+      limit: [5],
       filter: this.fb.group({
-        withoutTransfers: [''],
-        oneTransfers: [''],
-        twoTransfers: [''],
-        threeTransfers: ['']
-      })
+        withoutTransfers: [true],
+        oneTransfers: [true],
+        twoTransfers: [true],
+        threeTransfers: [true],
+      }),
     });
   }
 
-  // filterCheck(): void {
-  //   const params = this.filterForm.value;
-  //   console.log('form.value', params);
-  //
-  //   this.filtersTickets$ = this.store.select(selectFilters, {params});
-  //   console.log('filtersTickets', this.filtersTickets$);
-  // }
+  addMore(value: number): void {
+    const limitControl = this.filterForm.get('limit');
+    limitControl.patchValue(limitControl.value + value);
+  }
 }

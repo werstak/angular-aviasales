@@ -6,10 +6,18 @@ export const selectTicketsState = (state: AppState) => state.tickets;
 
 export const selectTickets = createSelector(
   selectTicketsState,
-  (state: TicketsState) => state.entities
-);
+  (state: TicketsState, {filters, limit = 5}) => {
+    return state.entities
+      .filter(entity => {
+        const [segment] = entity.segments;
+        const transferCount = segment.stops.length;
 
-export const selectFilters = createSelector(
-  selectTicketsState,
-  (state: TicketsState, props) => state.entities[props]
+        const {withoutTransfers, oneTransfers, twoTransfers, threeTransfers} = filters || {};
+        return (withoutTransfers && transferCount === 0) ||
+          (oneTransfers && transferCount === 1) ||
+          (twoTransfers && transferCount === 2) ||
+          (threeTransfers && transferCount === 3);
+      })
+      .slice(0, limit);
+  }
 );
