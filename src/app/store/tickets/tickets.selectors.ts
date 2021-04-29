@@ -6,7 +6,10 @@ export const selectTicketsState = (state: AppState) => state.tickets;
 
 export const selectTickets = createSelector(
   selectTicketsState,
-  (state: TicketsState, {filters, limit = 5}) => {
+  (state: TicketsState, {filters, limit = 5, sort: sorts}) => {
+
+    console.log('sort', sorts);
+
     return state.entities
       .filter(entity => {
         const [segment] = entity.segments;
@@ -18,7 +21,27 @@ export const selectTickets = createSelector(
           (twoTransfers && transferCount === 2) ||
           (threeTransfers && transferCount === 3);
       })
-      .sort()
+      .sort(sorts === 1 ? sortByPrice : sortByDuration)
       .slice(0, limit);
   }
 );
+
+const sortByPrice = (item1, item2) => {
+  if (item1.price < item2.price) {
+    return -1;
+  } else if (item1.price < item2.price) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
+const sortByDuration = (item1, item2) => {
+  if (item1.duration < item2.duration) {
+    return -1;
+  } else if (item1.duration < item2.duration) {
+    return 1;
+  } else {
+    return 0;
+  }
+};

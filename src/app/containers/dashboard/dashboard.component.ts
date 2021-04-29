@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit {
           return this.store.select(selectTickets, {
             filters: values.filter,
             limit: values.limit,
+            sort: values.sort,
           });
         }),
       );
@@ -95,7 +96,6 @@ export class DashboardComponent implements OnInit {
     const sortControl = this.filterForm.get('sort');
     sortControl.patchValue(value);
     console.log(this.filterForm.value);
-
   }
 
   addMore(value: number): void {
