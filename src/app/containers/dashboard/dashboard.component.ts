@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
     this.filterForm = this.fb.group({
       all: [true],
       limit: [5],
-      sort: [1],
+      sort: ['cheap'],
       filter: this.fb.group({
         withoutTransfers: [true],
         oneTransfers: [true],
@@ -92,10 +92,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  sortTickets(value: number, ): void {
+  sortTickets(value: string, ): void {
     const sortControl = this.filterForm.get('sort');
     sortControl.patchValue(value);
-    console.log(this.filterForm.value);
+
+    // console.log(this.filterForm.value);
+
   }
 
   addMore(value: number): void {

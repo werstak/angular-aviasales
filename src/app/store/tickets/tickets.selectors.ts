@@ -21,27 +21,53 @@ export const selectTickets = createSelector(
           (twoTransfers && transferCount === 2) ||
           (threeTransfers && transferCount === 3);
       })
-      .sort(sorts === 1 ? sortByPrice : sortByDuration)
+      .sort(getSortFunction(sorts))
+      // .sort(sorts === 'cheap' ? sortByPrice : sortByDuration)
       .slice(0, limit);
   }
 );
 
-const sortByPrice = (item1, item2) => {
+const getSortFunction = (sorts: string) => {
+  if (sorts === 'cheap') {
+    return sortByPrice;
+  } else if (sorts === 'fast') {
+    return sortByDuration;
+  } else {
+    return;
+  }
+};
+
+const sortByPrice = (a, b) => {
+  console.log('sortByPrice');
+  return a.price - b.price;
+};
+
+const sortByDuration = (a, b) => {
+  console.log('sortByDuration');
+  return a.segments[0].duration - b.segments[0].duration;
+};
+
+
+
+/*const sortByPrice = (item1, item2) => {
+  console.log('sortByPrice');
   if (item1.price < item2.price) {
     return -1;
-  } else if (item1.price < item2.price) {
+  } else if (item1.price > item2.price) {
     return 1;
   } else {
     return 0;
   }
 };
 
+
 const sortByDuration = (item1, item2) => {
-  if (item1.duration < item2.duration) {
+  console.log('sortByDuration');
+  if (item1.segments[0].duration < item2.segments[0].duration) {
     return -1;
-  } else if (item1.duration < item2.duration) {
+  } else if (item1.segments[0].duration > item2.segments[0].duration) {
     return 1;
   } else {
     return 0;
   }
-};
+};*/

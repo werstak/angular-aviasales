@@ -30,19 +30,19 @@
     <div class="head-filter">
       <mat-button-toggle-group name="fontStyle" value="cheap" aria-label="Font Style">
         <mat-button-toggle
-          (click)="sortTickets(1)"
+          (click)="sortTickets('cheap')"
           value="cheap"
         >
           Самый дешевый
         </mat-button-toggle>
         <mat-button-toggle
-          (click)="sortTickets(2)"
+          (click)="sortTickets('fast')"
           value="fast"
         >
           Самый быстрый
         </mat-button-toggle>
         <mat-button-toggle
-          (click)="sortTickets(3)"
+          (click)="sortTickets('optimal')"
           value="optimal"
         >
           Оптимальный
@@ -51,6 +51,8 @@
     </div>
 
     <div class="wrap-tickets">
+
+
 
 <!--      <mat-card class="ticket" style="background: #d5e8fc;">
         <div class="ticket__title">
