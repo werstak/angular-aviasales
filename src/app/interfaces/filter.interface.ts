@@ -1,6 +1,6 @@
-export interface FilterCheckboxInterface {
+export interface FilterInterface {
   title: string;
   completed: boolean;
   formControlName: string;
-  subFilters?: FilterCheckboxInterface[];
+  subFilters?: FilterInterface[];
 }

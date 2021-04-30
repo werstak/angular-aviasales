@@ -7,13 +7,13 @@
         <div class="sidebar__checkItem">
           <mat-checkbox
             [indeterminate]="(indeterminate$ | async)"
-            [formControlName]="filters.formControlName"
+            [formControlName]="filterCheckboxItems.formControlName"
           >
-            {{filters.title}}
+            {{filterCheckboxItems.title}}
           </mat-checkbox>
         </div>
         <div formGroupName="filter">
-          <div class="sidebar__checkItem" *ngFor="let subtask of filters.subfilters">
+          <div class="sidebar__checkItem" *ngFor="let subtask of filterCheckboxItems.subFilters">
             <mat-checkbox
               [formControlName]="subtask.formControlName"
             >
@@ -30,26 +30,13 @@
     <div class="head-filter">
       <mat-button-toggle-group name="fontStyle" value="cheap" aria-label="Font Style">
         <mat-button-toggle
-          (click)="sortTickets('cheap')"
-          value="cheap"
-        >
-          Самый дешевый
-        </mat-button-toggle>
-        <mat-button-toggle
-          (click)="sortTickets('fast')"
-          value="fast"
-        >
-          Самый быстрый
-        </mat-button-toggle>
-        <mat-button-toggle
-          (click)="sortTickets('optimal')"
-          value="optimal"
-        >
-          Оптимальный
+          *ngFor="let sortButton of sortBtnItems"
+          (click)="sortTickets(sortButton.value)"
+          [value]="sortButton.value">
+          {{ sortButton.title }}
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-
     <div class="wrap-tickets">
 
 
@@ -107,7 +94,6 @@
           <div class="ticket-content__cell">
             <div class="ticket-content__titles">В пути</div>
             <div class="ticket-content__values">{{ segment.duration | converterTime}}</div>
-<!--            <div class="ticket-content__values">{{ segment.duration}}</div>-->
           </div>
           <div class="ticket-content__cell">
             <div class="ticket-content__titles">{{ segment.stops.length }} пересадки</div>

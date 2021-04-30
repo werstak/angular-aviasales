@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { startWith, switchMap } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { combineLatest, Observable, of, Subject } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { selectTickets } from '../../store/tickets/tickets.selectors';
 import { FilterInterface } from '../../interfaces/filter.interface';
 import { TicketInterface } from '../../interfaces/ticket.interface';
+import { SortInterface } from '../../interfaces/sort.interface';
+
+// import * as _ from 'lodash';
 
 
 @Component({
@@ -18,14 +21,21 @@ import { TicketInterface } from '../../interfaces/ticket.interface';
 export class DashboardComponent implements OnInit {
 
   dataTickets$: Observable<TicketInterface[]>;
+  indeterminate$ = new Subject<boolean>();
 
   filterForm: FormGroup;
 
-  filters: FilterInterface = {
+  sortBtnItems: SortInterface [] = [
+    {title: 'Самый дешевый', value: 'cheap'},
+    {title: 'Самый быстрый', value: 'fast'},
+    {title: 'Оптимальный', value: 'optimal'},
+  ];
+
+  filterCheckboxItems: FilterInterface = {
     title: 'Все',
     completed: false,
     formControlName: 'all',
-    subfilters: [
+    subFilters: [
       {title: 'Без пересадок', completed: false, formControlName: 'withoutTransfers'},
       {title: '1 пересадка', completed: false, formControlName: 'oneTransfers'},
       {title: '2 пересадки', completed: false, formControlName: 'twoTransfers'},
@@ -33,7 +43,6 @@ export class DashboardComponent implements OnInit {
     ]
   };
 
-  indeterminate$ = new Subject<boolean>();
 
   constructor(
     public store: Store,
@@ -63,7 +72,7 @@ export class DashboardComponent implements OnInit {
       this.filterForm.get('all').patchValue(allChecked, {emitEvent: false});
     });
 
-    // console.log(this.filterForm.value);
+    console.log(this.filterForm.value);
 
     this.dataTickets$ = this.filterForm.valueChanges
       .pipe(
@@ -92,12 +101,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  sortTickets(value: string, ): void {
+  sortTickets(value: string): void {
     const sortControl = this.filterForm.get('sort');
     sortControl.patchValue(value);
-
-    // console.log(this.filterForm.value);
-
   }
 
   addMore(value: number): void {

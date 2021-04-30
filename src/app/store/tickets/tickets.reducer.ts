@@ -20,11 +20,11 @@ export const initialState: TicketsState = {
 const reducer = createReducer(
   initialState,
   on(fetchTicketsSuccessAction, (state, {payload}) => {
-    return ({
+    return {
       ...state,
       entities: payload.tickets,
       stop: payload.stop,
-    });
+    };
   }),
 );
 
