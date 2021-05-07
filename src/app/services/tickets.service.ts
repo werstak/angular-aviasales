@@ -29,9 +29,9 @@ export class TicketsService {
 
   /** Getting a list of tickets */
   fetchListTickets(searchId: string): Observable<TicketsInterface> {
-    const params = { searchId };
+    const params = {searchId};
     return this.httpClient
-      .get<TicketsInterface>(`tickets`, { params });
+      .get<TicketsInterface>(`tickets`, {params});
   }
 
 }

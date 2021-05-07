@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest, Observable, of, Subject } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { selectTickets } from '../../store/tickets/tickets.selectors';
 import { FilterInterface } from '../../interfaces/filter.interface';
 import { TicketInterface } from '../../interfaces/ticket.interface';
 import { SortInterface } from '../../interfaces/sort.interface';
-
-// import * as _ from 'lodash';
 
 
 @Component({

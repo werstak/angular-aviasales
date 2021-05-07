@@ -5,7 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ConverterTimeArrivalPipe implements PipeTransform {
   transform(value: any): any {
-
     const timeDispatch = value.date;
     const duration = value.duration;
 

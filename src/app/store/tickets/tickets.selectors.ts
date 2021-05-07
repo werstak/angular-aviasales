@@ -3,16 +3,9 @@ import { createSelector } from '@ngrx/store';
 
 export const selectTicketsState = (state: AppState) => state.tickets;
 
-// let counter: number;
-
 export const selectTickets = createSelector(
   selectTicketsState,
   (state: TicketsState, {filters, limit = 5, sort: sorts}) => {
-
-    // counter = 0;
-
-    // console.log('sort', sorts);
-
     return state.entities
       .filter(entity => {
         const [segment] = entity.segments;
@@ -30,6 +23,8 @@ export const selectTickets = createSelector(
   }
 );
 
+
+/** Sorting start depending on the received data */
 const getSortFunction = (sorts: string) => {
   if (sorts === 'cheap') {
     return sortByPrice;
@@ -40,22 +35,13 @@ const getSortFunction = (sorts: string) => {
   }
 };
 
-
-
 const sortByPrice = (a, b) => {
-  // counter ++;
-  // console.log('sortByPrice', counter);
-  // console.log('sortByPrice');
   return a.price - b.price;
 };
 
 const sortByDuration = (a, b) => {
-  // counter ++;
-  // console.log('sortByDuration', counter);
-  // console.log('sortByDuration');
   return a.segments[0].duration - b.segments[0].duration;
 };
-
 
 
 /*const sortByPrice = (item1, item2) => {
