@@ -40,42 +40,41 @@
     <div class="wrap-tickets">
 
 
-
-<!--      <mat-card class="ticket" style="background: #d5e8fc;">
-        <div class="ticket__title">
-          <div class="ticket__price">13 400 P</div>
-          <div class="ticket__carrier">
-            <img class="ticket__carrierLogo" src="/assets/img/carrier_logo.png" alt="Carrier Logo">
-            <div class="ticket__carrierTitle">Airlines</div>
-          </div>
-        </div>
-        <div class="ticket-content">
-          <div class="ticket-content__cell">
-            <div class="ticket-content__titles">MOW – HKT</div>
-            <div class="ticket-content__values">10:45 – 08:00</div>
-          </div>
-          <div class="ticket-content__cell">
-            <div class="ticket-content__titles">В пути</div>
-            <div class="ticket-content__values">21ч 15м</div>
-          </div>
-          <div class="ticket-content__cell">
-            <div class="ticket-content__titles">2 пересадки</div>
-            <div class="ticket-content__values">HKG, JNB</div>
-          </div>
-          <div class="ticket-content__cell">
-            <div class="ticket-content__titles">MOW – HKT</div>
-            <div class="ticket-content__values">10:45 – 08:00</div>
-          </div>
-          <div class="ticket-content__cell">
-            <div class="ticket-content__titles">В пути</div>
-            <div class="ticket-content__values">13ч 30м</div>
-          </div>
-          <div class="ticket-content__cell">
-            <div class="ticket-content__titles">1 пересадка</div>
-            <div class="ticket-content__values">HKG</div>
-          </div>
-        </div>
-      </mat-card>-->
+      <!--      <mat-card class="ticket" style="background: #d5e8fc;">
+              <div class="ticket__title">
+                <div class="ticket__price">13 400 P</div>
+                <div class="ticket__carrier">
+                  <img class="ticket__carrierLogo" src="/assets/img/carrier_logo.png" alt="Carrier Logo">
+                  <div class="ticket__carrierTitle">Airlines</div>
+                </div>
+              </div>
+              <div class="ticket-content">
+                <div class="ticket-content__cell">
+                  <div class="ticket-content__titles">MOW – HKT</div>
+                  <div class="ticket-content__values">10:45 – 08:00</div>
+                </div>
+                <div class="ticket-content__cell">
+                  <div class="ticket-content__titles">В пути</div>
+                  <div class="ticket-content__values">21ч 15м</div>
+                </div>
+                <div class="ticket-content__cell">
+                  <div class="ticket-content__titles">2 пересадки</div>
+                  <div class="ticket-content__values">HKG, JNB</div>
+                </div>
+                <div class="ticket-content__cell">
+                  <div class="ticket-content__titles">MOW – HKT</div>
+                  <div class="ticket-content__values">10:45 – 08:00</div>
+                </div>
+                <div class="ticket-content__cell">
+                  <div class="ticket-content__titles">В пути</div>
+                  <div class="ticket-content__values">13ч 30м</div>
+                </div>
+                <div class="ticket-content__cell">
+                  <div class="ticket-content__titles">1 пересадка</div>
+                  <div class="ticket-content__values">HKG</div>
+                </div>
+              </div>
+            </mat-card>-->
 
       <mat-card class="ticket" *ngFor="let ticket of dataTickets$ | async">
         <div class="ticket__title">
@@ -89,11 +88,7 @@
         <div class="ticket-content" *ngFor="let segment of ticket.segments">
           <div class="ticket-content__cell">
             <div class="ticket-content__titles">{{segment.origin}} – {{segment.destination}}</div>
-            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – {{ segment | converterTimeArrival:[segment.date | date:'h:mm', segment.duration]}}</div>
-<!--            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – {{ segment | converterTimeArrival:[segment.date | date:'h:mm', segment.duration]}}</div>-->
-<!--            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – {{ [segment.date, segment.duration | converterTimeArrival] }}</div>-->
-<!--            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – 08:00</div>-->
-<!--            <div class="ticket-content__values">10:45 – 08:00</div>-->
+            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – {{ segment | converterTimeArrival }}</div>
           </div>
           <div class="ticket-content__cell">
             <div class="ticket-content__titles">В пути</div>

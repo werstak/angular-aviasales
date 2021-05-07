@@ -4,30 +4,16 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'converterTimeArrival'
 })
 export class ConverterTimeArrivalPipe implements PipeTransform {
-  transform(value: any, ...args: any[]): any {
-    const [timeDispatch, duration] = args[0];
-    console.log('value', value);
-    console.log('timeDispatch', timeDispatch);
+  transform(value: any): any {
 
-    // console.log('duration', duration);
-    // const hours = Math.floor(duration / 60);
-    // const minutes = Math.floor(duration % 60);
-    // console.log(hours + ':' + minutes);
+    const timeDispatch = value.date;
+    const duration = value.duration;
 
-    const CurrentTime = new Date(value);
+    /** Arrival time calculation */
+    const CurrentTime = new Date(timeDispatch);
     CurrentTime.setMinutes(CurrentTime.getMinutes() + duration);
-    return(CurrentTime.getHours() + ':' + CurrentTime.getMinutes());
-
-
-
-    // console.log('args', args[0]);
-    // console.log('value', value);
-    // const [date1, duration] = args;
-    // const [date] = args;
-
-    // console.log( 'date', date[0]);
-    // console.log( 'date', date[1]);
-    // return date[1];
+    const minutes = CurrentTime.getMinutes();
+    const minutesString = String(minutes);
+    return (CurrentTime.getHours() + ':' + (minutesString.length > 1 ? CurrentTime.getMinutes() : '0' + CurrentTime.getMinutes()));
   }
-
 }

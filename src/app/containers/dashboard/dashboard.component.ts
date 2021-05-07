@@ -72,8 +72,6 @@ export class DashboardComponent implements OnInit {
       this.filterForm.get('all').patchValue(allChecked, {emitEvent: false});
     });
 
-    console.log(this.filterForm.value);
-
     this.dataTickets$ = this.filterForm.valueChanges
       .pipe(
         startWith(this.filterForm.value as Record<string, unknown>),
