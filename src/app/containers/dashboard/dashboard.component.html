@@ -28,7 +28,7 @@
   <div class="ticket-dashboard">
 
     <div class="head-filter">
-      <mat-button-toggle-group name="fontStyle" value="cheap" aria-label="Font Style">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
         <mat-button-toggle
           *ngFor="let sortButton of sortBtnItems"
           (click)="sortTickets(sortButton.value)"
@@ -89,7 +89,11 @@
         <div class="ticket-content" *ngFor="let segment of ticket.segments">
           <div class="ticket-content__cell">
             <div class="ticket-content__titles">{{segment.origin}} – {{segment.destination}}</div>
-            <div class="ticket-content__values">10:45 – 08:00</div>
+            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – {{ segment | converterTimeArrival:[segment.date | date:'h:mm', segment.duration]}}</div>
+<!--            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – {{ segment | converterTimeArrival:[segment.date | date:'h:mm', segment.duration]}}</div>-->
+<!--            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – {{ [segment.date, segment.duration | converterTimeArrival] }}</div>-->
+<!--            <div class="ticket-content__values">{{segment.date | date:'h:mm'}} – 08:00</div>-->
+<!--            <div class="ticket-content__values">10:45 – 08:00</div>-->
           </div>
           <div class="ticket-content__cell">
             <div class="ticket-content__titles">В пути</div>

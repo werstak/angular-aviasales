@@ -21,12 +21,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TicketsEffects } from './store/tickets/tickets.effects';
 import { ticketsReducer } from './store/tickets/tickets.reducer';
 import { ConverterTimePipe } from './pipes/converter-time.pipe';
+import { ConverterTimeArrivalPipe } from './pipes/converter-time-arrival.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    ConverterTimePipe
+    ConverterTimePipe,
+    ConverterTimeArrivalPipe,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ import { ConverterTimePipe } from './pipes/converter-time.pipe';
   providers: [
     TicketsService,
     ConverterTimePipe,
+    ConverterTimeArrivalPipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,

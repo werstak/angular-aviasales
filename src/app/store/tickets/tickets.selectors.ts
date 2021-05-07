@@ -1,14 +1,17 @@
 import { AppState, TicketsState } from './tickets.reducer';
 import { createSelector } from '@ngrx/store';
 
-
 export const selectTicketsState = (state: AppState) => state.tickets;
+
+// let counter: number;
 
 export const selectTickets = createSelector(
   selectTicketsState,
   (state: TicketsState, {filters, limit = 5, sort: sorts}) => {
 
-    console.log('sort', sorts);
+    // counter = 0;
+
+    // console.log('sort', sorts);
 
     return state.entities
       .filter(entity => {
@@ -37,13 +40,19 @@ const getSortFunction = (sorts: string) => {
   }
 };
 
+
+
 const sortByPrice = (a, b) => {
-  console.log('sortByPrice');
+  // counter ++;
+  // console.log('sortByPrice', counter);
+  // console.log('sortByPrice');
   return a.price - b.price;
 };
 
 const sortByDuration = (a, b) => {
-  console.log('sortByDuration');
+  // counter ++;
+  // console.log('sortByDuration', counter);
+  // console.log('sortByDuration');
   return a.segments[0].duration - b.segments[0].duration;
 };
 

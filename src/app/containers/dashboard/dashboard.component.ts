@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   sortBtnItems: SortInterface [] = [
     {title: 'Самый дешевый', value: 'cheap'},
     {title: 'Самый быстрый', value: 'fast'},
-    {title: 'Оптимальный', value: 'optimal'},
+    // {title: 'По умолчанию', value: 'optimal'},
   ];
 
   filterCheckboxItems: FilterInterface = {
@@ -91,7 +91,7 @@ export class DashboardComponent implements OnInit {
     this.filterForm = this.fb.group({
       all: [true],
       limit: [5],
-      sort: ['cheap'],
+      sort: [''],
       filter: this.fb.group({
         withoutTransfers: [true],
         oneTransfers: [true],
