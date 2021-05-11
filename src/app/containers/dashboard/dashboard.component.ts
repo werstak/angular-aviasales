@@ -5,7 +5,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 
 import { Store } from '@ngrx/store';
-import { selectTickets } from '../../store/tickets/tickets.selectors';
+import { selectAllTickets, selectTickets } from '../../store/tickets/tickets.selectors';
 import { FilterInterface } from '../../interfaces/filter.interface';
 import { TicketInterface } from '../../interfaces/ticket.interface';
 import { SortInterface } from '../../interfaces/sort.interface';
@@ -24,6 +24,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   subscribeForm: Subscription;
 
   filterForm: FormGroup;
+
+  allTickets$ = this.store.select(selectAllTickets);
+  totalCounter: number;
 
   sortBtnItems: SortInterface [] = [
     {title: 'Самый дешевый', value: 'cheap'},
@@ -53,6 +56,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.buildForm();
 
+
+    this.allTickets$.subscribe({
+      next: count => {
+        this.totalCounter = count.length;
+        return this.totalCounter;
+      },
+    });
+
     this.subscribeForm = this.filterForm.get('all').valueChanges.subscribe((allChecked: boolean) => {
       this.filterForm.get('filter').patchValue({
         withoutTransfers: allChecked,
@@ -71,6 +82,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.indeterminate$.next(isIndeterminate);
       this.filterForm.get('all').patchValue(allChecked, {emitEvent: false});
     });
+
 
     this.dataTickets$ = this.filterForm.valueChanges
       .pipe(

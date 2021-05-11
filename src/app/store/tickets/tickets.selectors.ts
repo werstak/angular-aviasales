@@ -3,6 +3,11 @@ import { createSelector } from '@ngrx/store';
 
 export const selectTicketsState = (state: AppState) => state.tickets;
 
+export const selectAllTickets = createSelector(
+  selectTicketsState,
+  (state: TicketsState) => state.entities
+);
+
 export const selectTickets = createSelector(
   selectTicketsState,
   (state: TicketsState, {filters, limit, sort: sorts}) => {
@@ -42,27 +47,3 @@ const sortByPrice = (a, b) => {
 const sortByDuration = (a, b) => {
   return a.segments[0].duration - b.segments[0].duration;
 };
-
-
-/*const sortByPrice = (item1, item2) => {
-  console.log('sortByPrice');
-  if (item1.price < item2.price) {
-    return -1;
-  } else if (item1.price > item2.price) {
-    return 1;
-  } else {
-    return 0;
-  }
-};
-
-
-const sortByDuration = (item1, item2) => {
-  console.log('sortByDuration');
-  if (item1.segments[0].duration < item2.segments[0].duration) {
-    return -1;
-  } else if (item1.segments[0].duration > item2.segments[0].duration) {
-    return 1;
-  } else {
-    return 0;
-  }
-};*/

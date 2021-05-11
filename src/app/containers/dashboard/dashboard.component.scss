@@ -228,3 +228,10 @@ mat-button-toggle-group {
     color: #4A4A4A;
   }
 }
+
+/* =================================== START media =================================== */
+@media screen and (max-width: 850px) {
+  .sidebar-filter {
+    max-width: 502px;
+  }
+}
