@@ -40,14 +40,12 @@
     <div class="wrap-tickets">
 
 <!--      {{totalCount$ | async}}-->
-
 <!--      <p *ngFor="let ticket of totalCount$ | async as count">
-                {{ count.length }}
-      </p>-->
-<p>{{totalCounter}}</p>
+                {{ count.length }}</p>-->
 
       <mat-card class="ticket" *ngFor="let ticket of dataTickets$ | async as count">
-        {{ count.length }}
+
+<!--        <p>{{ count.length }}</p>-->
         <div class="ticket__title">
           <div class="ticket__price">{{ ticket.price }} Р</div>
           <div class="ticket__carrier">
@@ -75,11 +73,20 @@
 
     </div>
 
+<!--    <p>{{ counter.length }}</p>-->
+<!--    <p>{{counter.count.length}}</p>-->
+
+    <div *ngIf="displayTickets">
+      <p>{{displayTickets}}</p>
+      <p> из</p>
+      <p>{{totalCounter}}</p>
+    </div>
+
     <button
       class="btn-more"
       mat-flat-button
-      [disabled]="!filterForm.valid"
-      (click)="addMore(5)">
+      [disabled]="displayTickets ==  totalCounter || displayTickets> totalCounter"
+      (click)="addMore(100)">
       Показать еще 5 билетов!
     </button>
 

@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   allTickets$ = this.store.select(selectAllTickets);
   totalCounter: number;
+  displayTickets: any;
 
   sortBtnItems: SortInterface [] = [
     {title: 'Самый дешевый', value: 'cheap'},
@@ -118,7 +119,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   addMore(value: number): void {
     const limitControl = this.filterForm.get('limit');
+    // console.log('limitControl', limitControl.value);
     limitControl.patchValue(limitControl.value + value);
+    this.displayTickets = limitControl.value;
+    console.log(this.displayTickets);
   }
 
   ngOnDestroy(): void {
