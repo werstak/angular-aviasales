@@ -5,7 +5,7 @@ export const selectTicketsState = (state: AppState) => state.tickets;
 
 export const selectTickets = createSelector(
   selectTicketsState,
-  (state: TicketsState, {filters, limit = 5, sort: sorts}) => {
+  (state: TicketsState, {filters, limit, sort: sorts}) => {
     return state.entities
       .filter(entity => {
         const [segment] = entity.segments;

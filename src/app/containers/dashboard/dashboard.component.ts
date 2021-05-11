@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { startWith, switchMap } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { selectTickets } from '../../store/tickets/tickets.selectors';
@@ -16,10 +16,12 @@ import { SortInterface } from '../../interfaces/sort.interface';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   dataTickets$: Observable<TicketInterface[]>;
   indeterminate$ = new Subject<boolean>();
+
+  subscribeForm: Subscription;
 
   filterForm: FormGroup;
 
@@ -51,7 +53,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
 
-    this.filterForm.get('all').valueChanges.subscribe((allChecked: boolean) => {
+    this.subscribeForm = this.filterForm.get('all').valueChanges.subscribe((allChecked: boolean) => {
       this.filterForm.get('filter').patchValue({
         withoutTransfers: allChecked,
         oneTransfers: allChecked,
@@ -60,7 +62,7 @@ export class DashboardComponent implements OnInit {
       });
     });
 
-    this.filterForm.get('filter').valueChanges.subscribe(fields => {
+    this.subscribeForm = this.filterForm.get('filter').valueChanges.subscribe(fields => {
       const values = Object.values(fields);
       const allChecked = values.every(value => value);
       const allUnchecked = values.every(value => !value);
@@ -105,5 +107,9 @@ export class DashboardComponent implements OnInit {
   addMore(value: number): void {
     const limitControl = this.filterForm.get('limit');
     limitControl.patchValue(limitControl.value + value);
+  }
+
+  ngOnDestroy(): void {
+    this.subscribeForm.unsubscribe();
   }
 }
