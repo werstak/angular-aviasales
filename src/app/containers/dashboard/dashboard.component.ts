@@ -29,19 +29,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   unsub: Subscription;
 
   sortBtnItems: SortInterface [] = [
-    {title: 'Самый дешевый', value: 'cheap'},
-    {title: 'Самый быстрый', value: 'fast'},
+    {title: 'The cheapest', value: 'cheap'},
+    {title: 'The fastest', value: 'fast'},
   ];
 
   filterCheckboxItems: FilterInterface = {
-    title: 'Все',
+    title: 'All',
     completed: false,
     formControlName: 'all',
     subFilters: [
-      {title: 'Без пересадок', completed: false, formControlName: 'withoutTransfers'},
-      {title: '1 пересадка', completed: false, formControlName: 'oneTransfers'},
-      {title: '2 пересадки', completed: false, formControlName: 'twoTransfers'},
-      {title: '3 пересадки', completed: false, formControlName: 'threeTransfers'}
+      {title: 'Direct', completed: false, formControlName: 'withoutTransfers'},
+      {title: '1 Stop', completed: false, formControlName: 'oneTransfers'},
+      {title: '2 Stops', completed: false, formControlName: 'twoTransfers'},
+      {title: '3 Stops', completed: false, formControlName: 'threeTransfers'}
     ]
   };
 

@@ -23,7 +23,6 @@ export const selectTickets = createSelector(
           (threeTransfers && transferCount === 3);
       })
       .sort(getSortFunction(sorts))
-      // .sort(sorts === 'cheap' ? sortByPrice : sortByDuration)
       .slice(0, limit);
   }
 );

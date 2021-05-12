@@ -2,7 +2,7 @@
 
   <div class="sidebar-filter">
     <mat-card class="sidebar">
-      <span class="sidebar__title">количество пересадок</span>
+      <span class="sidebar__title">number of stops</span>
       <div class="sidebar__checkList">
         <div class="sidebar__checkItem">
           <mat-checkbox
@@ -41,7 +41,7 @@
 
       <mat-card class="ticket" *ngFor="let ticket of dataTickets$ | async as count">
         <div class="ticket__title">
-          <div class="ticket__price">{{ ticket.price }} Р</div>
+          <div class="ticket__price">{{ ticket.price }} &#36;</div>
           <div class="ticket__carrier">
             <img class="ticket__carrierLogo" src="/assets/img/carrier_logo.png" alt="Carrier Logo">
             <div class="ticket__carrierTitle">{{ ticket.carrier }}</div>
@@ -55,11 +55,11 @@
             </div>
           </div>
           <div class="ticket-content__cell">
-            <div class="ticket-content__titles">В пути</div>
+            <div class="ticket-content__titles"> Travel time</div>
             <div class="ticket-content__values">{{ segment.duration | converterTime}}</div>
           </div>
           <div class="ticket-content__cell">
-            <div class="ticket-content__titles">{{ segment.stops.length }} пересадки</div>
+            <div class="ticket-content__titles">{{ segment.stops.length }} Stops</div>
             <div class="ticket-content__values">{{ segment.stops }}</div>
           </div>
         </div>
@@ -67,19 +67,18 @@
 
     </div>
 
-    <mat-card *ngIf="displayTickets " class="tickets-counter">
+<!--    <mat-card *ngIf="displayTickets " class="tickets-counter">
       <span>{{displayTickets}}</span>
-      <span> из</span>
+      <span>Tickets out of</span>
       <span>{{totalCounter}}</span>
-    </mat-card>
-
+    </mat-card>-->
 
     <button
       class="btn-more"
       mat-flat-button
-      [disabled]="displayTickets === totalCounter || displayTickets > totalCounter"
+      [disabled]="displayTickets === 0 || displayTickets === totalCounter || displayTickets > totalCounter"
       (click)="displayMore(5)">
-      Показать еще 5 билетов!
+      Show 5 more tickets!
     </button>
 
   </div>
