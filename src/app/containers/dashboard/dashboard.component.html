@@ -51,7 +51,8 @@
           <div class="ticket-content__cell">
             <div class="ticket-content__titles">{{segment.origin}} – {{segment.destination}}</div>
             <div class="ticket-content__values">
-              {{segment.date | date:'h:mm'}} – {{ segment | converterTimeArrival }}</div>
+              {{segment.date | date:'h:mm'}} – {{ segment | converterTimeArrival }}
+            </div>
           </div>
           <div class="ticket-content__cell">
             <div class="ticket-content__titles">В пути</div>
@@ -66,17 +67,18 @@
 
     </div>
 
-    <div *ngIf="displayTickets">
-      <p>{{displayTickets}}</p>
-      <p> из</p>
-      <p>{{totalCounter}}</p>
-    </div>
+    <mat-card *ngIf="displayTickets " class="tickets-counter">
+      <span>{{displayTickets}}</span>
+      <span> из</span>
+      <span>{{totalCounter}}</span>
+    </mat-card>
+
 
     <button
       class="btn-more"
       mat-flat-button
       [disabled]="displayTickets === totalCounter || displayTickets > totalCounter"
-      (click)="addMore(5)">
+      (click)="displayMore(5)">
       Показать еще 5 билетов!
     </button>
 

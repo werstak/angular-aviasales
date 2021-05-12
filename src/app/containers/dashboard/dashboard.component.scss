@@ -229,6 +229,20 @@ mat-button-toggle-group {
   }
 }
 
+.tickets-counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: baseline;
+  color: #4A4A4A;
+  background: #c4e6ff;
+  font-weight: bold;
+  margin: 0 0 20px;
+  max-width: 502px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* =================================== START media =================================== */
 @media screen and (max-width: 850px) {
   .sidebar-filter {

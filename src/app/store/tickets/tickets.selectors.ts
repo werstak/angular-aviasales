@@ -28,7 +28,6 @@ export const selectTickets = createSelector(
   }
 );
 
-
 /** Sorting start depending on the received data */
 const getSortFunction = (sorts: string) => {
   if (sorts === 'cheap') {

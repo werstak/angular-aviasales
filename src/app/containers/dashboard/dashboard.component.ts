@@ -22,17 +22,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   indeterminate$ = new Subject<boolean>();
   allTickets$ = this.store.select(selectAllTickets);
 
-  unsub: Subscription;
-
   filterForm: FormGroup;
-
   totalCounter: number;
   displayTickets: number;
+
+  unsub: Subscription;
 
   sortBtnItems: SortInterface [] = [
     {title: 'Самый дешевый', value: 'cheap'},
     {title: 'Самый быстрый', value: 'fast'},
-    // {title: 'По умолчанию', value: 'optimal'},
   ];
 
   filterCheckboxItems: FilterInterface = {
@@ -56,8 +54,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildForm();
-
-
     this.unsub = this.allTickets$.subscribe({
       next: count => {
         this.totalCounter = count.length;
@@ -83,7 +79,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.indeterminate$.next(isIndeterminate);
       this.filterForm.get('all').patchValue(allChecked, {emitEvent: false});
     });
-
 
     this.dataTickets$ = this.filterForm.valueChanges
       .pipe(
@@ -123,7 +118,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     sortControl.patchValue(value);
   }
 
-  addMore(value: number): void {
+  displayMore(value: number): void {
     const limitControl = this.filterForm.get('limit');
     limitControl.patchValue(limitControl.value + value);
   }
