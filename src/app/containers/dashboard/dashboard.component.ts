@@ -20,14 +20,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   dataTickets$: Observable<TicketInterface[]>;
   indeterminate$ = new Subject<boolean>();
+  allTickets$ = this.store.select(selectAllTickets);
 
-  subscribeForm: Subscription;
+  unsub: Subscription;
 
   filterForm: FormGroup;
 
-  allTickets$ = this.store.select(selectAllTickets);
   totalCounter: number;
-  displayTickets: any;
+  displayTickets: number;
 
   sortBtnItems: SortInterface [] = [
     {title: 'Самый дешевый', value: 'cheap'},
@@ -58,14 +58,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.buildForm();
 
 
-    this.allTickets$.subscribe({
+    this.unsub = this.allTickets$.subscribe({
       next: count => {
         this.totalCounter = count.length;
         return this.totalCounter;
       },
     });
 
-    this.subscribeForm = this.filterForm.get('all').valueChanges.subscribe((allChecked: boolean) => {
+    this.unsub = this.filterForm.get('all').valueChanges.subscribe((allChecked: boolean) => {
       this.filterForm.get('filter').patchValue({
         withoutTransfers: allChecked,
         oneTransfers: allChecked,
@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.subscribeForm = this.filterForm.get('filter').valueChanges.subscribe(fields => {
+    this.unsub = this.filterForm.get('filter').valueChanges.subscribe(fields => {
       const values = Object.values(fields);
       const allChecked = values.every(value => value);
       const allUnchecked = values.every(value => !value);
@@ -96,6 +96,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
           });
         }),
       );
+
+    this.unsub = this.dataTickets$.subscribe({
+      next: count => {
+        this.displayTickets = count.length;
+      },
+    });
   }
 
   private buildForm(): void {
@@ -119,13 +125,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   addMore(value: number): void {
     const limitControl = this.filterForm.get('limit');
-    // console.log('limitControl', limitControl.value);
     limitControl.patchValue(limitControl.value + value);
-    this.displayTickets = limitControl.value;
-    console.log(this.displayTickets);
   }
 
   ngOnDestroy(): void {
-    this.subscribeForm.unsubscribe();
+    this.unsub.unsubscribe();
   }
 }
