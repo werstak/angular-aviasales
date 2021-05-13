@@ -7,7 +7,7 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './containers/dashboard/dashboard.component';
+import { DashboardComponent } from './componets/dashboard/dashboard.component';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BaseUrlInterceptor } from './core/api.interceptor';
