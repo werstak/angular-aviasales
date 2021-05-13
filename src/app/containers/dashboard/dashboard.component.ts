@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { startWith, switchMap } from 'rxjs/operators';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable, Subject, Subscription } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { selectAllTickets, selectTickets } from '../../store/tickets/tickets.selectors';
@@ -19,14 +19,16 @@ import { SortInterface } from '../../interfaces/sort.interface';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   dataTickets$: Observable<TicketInterface[]>;
+  filterForm: FormGroup;
+  totalCounter$: Observable<number>;
+  displayTickets$: Observable<number>;
+  isShowMore$: Observable<boolean>;
   indeterminate$ = new Subject<boolean>();
+
   allTickets$ = this.store.select(selectAllTickets);
 
-  filterForm: FormGroup;
-  totalCounter: number;
-  displayTickets: number;
-
-  unsub: Subscription;
+  unsubFormAllChecked: Subscription;
+  unsubFormFields: Subscription;
 
   sortBtnItems: SortInterface [] = [
     {title: 'The cheapest', value: 'cheap'},
@@ -54,14 +56,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildForm();
-    this.unsub = this.allTickets$.subscribe({
-      next: count => {
-        this.totalCounter = count.length;
-        return this.totalCounter;
-      },
-    });
 
-    this.unsub = this.filterForm.get('all').valueChanges.subscribe((allChecked: boolean) => {
+    this.unsubFormAllChecked = this.filterForm.get('all').valueChanges.subscribe((allChecked: boolean) => {
       this.filterForm.get('filter').patchValue({
         withoutTransfers: allChecked,
         oneTransfers: allChecked,
@@ -70,7 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.unsub = this.filterForm.get('filter').valueChanges.subscribe(fields => {
+    this.unsubFormFields = this.filterForm.get('filter').valueChanges.subscribe(fields => {
       const values = Object.values(fields);
       const allChecked = values.every(value => value);
       const allUnchecked = values.every(value => !value);
@@ -92,11 +88,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }),
       );
 
-    this.unsub = this.dataTickets$.subscribe({
-      next: count => {
-        this.displayTickets = count.length;
-      },
-    });
+    this.displayTickets$ = this.dataTickets$.pipe(
+      map(tickets => tickets.length)
+    );
+
+    this.totalCounter$ = this.allTickets$.pipe(
+      map(tickets => tickets.length)
+    );
+
+    this.isShowMore$ = combineLatest([
+      this.displayTickets$,
+      this.totalCounter$
+    ])
+      .pipe(
+        map(([display, total]) => display === 0 || display === total || display > total)
+      );
   }
 
   private buildForm(): void {
@@ -124,6 +130,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsub.unsubscribe();
+    this.unsubFormAllChecked.unsubscribe();
+    this.unsubFormFields.unsubscribe();
   }
 }

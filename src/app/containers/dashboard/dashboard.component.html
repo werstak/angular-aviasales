@@ -39,7 +39,7 @@
     </div>
     <div class="wrap-tickets">
 
-      <mat-card class="ticket" *ngFor="let ticket of dataTickets$ | async as count">
+      <mat-card class="ticket" *ngFor="let ticket of dataTickets$ | async">
         <div class="ticket__title">
           <div class="ticket__price">{{ ticket.price }} &#36;</div>
           <div class="ticket__carrier">
@@ -67,16 +67,16 @@
 
     </div>
 
-<!--    <mat-card *ngIf="displayTickets " class="tickets-counter">
-      <span>{{displayTickets}}</span>
+    <mat-card *ngIf="displayTickets$ | async" class="tickets-counter">
+      <span>{{displayTickets$ | async}}</span>
       <span>Tickets out of</span>
-      <span>{{totalCounter}}</span>
-    </mat-card>-->
+      <span>{{totalCounter$ | async}}</span>
+    </mat-card>
 
     <button
       class="btn-more"
       mat-flat-button
-      [disabled]="displayTickets === 0 || displayTickets === totalCounter || displayTickets > totalCounter"
+      [disabled]="isShowMore$ | async"
       (click)="displayMore(5)">
       Show 5 more tickets!
     </button>
