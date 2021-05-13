@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { map, catchError, tap, switchMap } from 'rxjs/operators';
 import {
   fetchSearchIdAction,
@@ -28,9 +28,13 @@ export class TicketsEffects {
     switchMap(() => this.ticketsService.fetchSearchId()
       .pipe(
         map(id => fetchSearchIdSuccessAction({payload: id})),
-        catchError(error => {
+        catchError(err => {
+            console.log(err);
+            return throwError(err);
+          }),
+/*        catchError(error => {
           return of(fetchSearchIdFailAction({payload: error}));
-        }),
+        }),*/
       )))
   );
 
@@ -49,9 +53,13 @@ export class TicketsEffects {
         map(tickets => {
           return fetchTicketsSuccessAction({payload: tickets});
         }),
-        catchError(error => {
-          return of(fetchTicketsFailAction({payload: error}));
+        catchError(err => {
+          console.log(err);
+          return throwError(err);
         }),
+/*        catchError(error => {
+          return of(fetchTicketsFailAction({payload: error}));
+        }),*/
       )))
   );
 
